@@ -182,6 +182,14 @@
 		function createObject( mass, halfExtents, pos, quat, material ) {
 
 			const object = new THREE.Mesh( new THREE.BoxGeometry( halfExtents.x * 2, halfExtents.y * 2, halfExtents.z * 2 ), material );
+			textureLoader.load( 'examples/textures/wall_brick.png', function ( texture ) {
+				texture.wrapS = THREE.RepeatWrapping;
+				texture.wrapT = THREE.RepeatWrapping;
+				texture.repeat.set( 4, 4 );
+				object.material.map = texture;
+				object.material.needsUpdate = true;
+
+			} );
 			object.position.copy( pos );
 			object.quaternion.copy( quat );
 			convexBreaker.prepareBreakableObject( object, mass, new THREE.Vector3(), new THREE.Vector3(), true );
